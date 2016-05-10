@@ -16,7 +16,8 @@ Module Input Variables
 - `cidrs` - Comma-separated list of private subnet CIDR blocks
 - `azs` - Comma-separated list of availability zones
 - `public_subnet_ids` - Comma-separated list of public subnet ids where NAT gateway will be created
-- `nat_gateways_count` - Number of NAT gateways to create (shoud be at least 1). For high-availability make it equal to public subnets.
+- `nat_gateways_count` - Number of NAT gateways to create (should be at least 1). For high-availability make it equal to public subnets.
+- `map_public_ip_on_launch` - Boolean that controls the subnets ability to assign public ip addresses (default=true).
 
 Usage
 -----
