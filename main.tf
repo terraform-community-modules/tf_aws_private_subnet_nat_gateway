@@ -1,20 +1,3 @@
-variable "name" {
-  default = "private"
-}
-variable "cidrs" {
-}
-variable "azs" {
-}
-variable "vpc_id" {
-}
-variable "public_subnet_ids" {
-}
-variable "nat_gateways_count" {
-}
-variable "map_public_ip_on_launch" {
-  default = true
-}
-
 # Subnet
 resource "aws_subnet" "private" {
   vpc_id                  = "${var.vpc_id}"
@@ -63,17 +46,4 @@ resource "aws_nat_gateway" "nat" {
   allocation_id = "${element(aws_eip.nat.*.id, count.index)}"
   subnet_id     = "${element(split(",", var.public_subnet_ids), count.index)}"
   count         = "${var.nat_gateways_count}"
-}
-
-# Output
-output "subnet_ids" {
-  value = "${join(",", aws_subnet.private.*.id)}"
-}
-
-output "private_route_table_ids" {
-  value = "${join(",", aws_route_table.private.*.id)}"
-}
-
-output "nat_eips" {
-  value = "${join(",", aws_eip.nat.*.public_ip)}"
 }
