@@ -13,9 +13,9 @@ Module Input Variables
 
 - `name` - Name (optional)
 - `vpc_id` - VPC id
-- `cidrs` - Comma-separated list of private subnet CIDR blocks
-- `azs` - Comma-separated list of availability zones
-- `public_subnet_ids` - Comma-separated list of public subnet ids where NAT gateway will be created
+- `cidrs` - List of private subnet CIDR blocks
+- `azs` - List of availability zones
+- `public_subnet_ids` - List of public subnet ids where NAT gateway will be created
 - `nat_gateways_count` - Number of NAT gateways to create (should be at least 1). For high-availability make it equal to public subnets.
 - `map_public_ip_on_launch` - Boolean that controls the subnets ability to assign public ip addresses (default=true).
 
@@ -28,9 +28,9 @@ module "private_subnet" {
 
   name               = "production-private"
   vpc_id             = "vpc-12345678"
-  cidrs              = "10.4.1.0/24,10.4.2.0/24,10.4.3.0/24"
-  azs                = "eu-west-1a,eu-west-1b,eu-west-1c"
-  public_subnet_ids  = "subnet-123abcde,subnet-456abcde,subnet-789abcde"
+  cidrs              = ["10.4.1.0/24", "10.4.2.0/24", "10.4.3.0/24"]
+  azs                = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
+  public_subnet_ids  = ["subnet-123abcde", "subnet-456abcde", "subnet-789abcde"]
   nat_gateways_count = 3    # can be between 1 and "number of public subnets".
 }
 ```
@@ -38,9 +38,9 @@ module "private_subnet" {
 Outputs
 =======
 
-- `subnet_ids` - Comma-separated list of private subnet ids
-- `private_route_table_ids` - Comma-separated list of route table ids
-- `nat_eips` - Comma-separated list of NAT gateways EIPs
+- `subnet_ids` - List of private subnet ids
+- `private_route_table_ids` - List of route table ids
+- `nat_eips` - List of NAT gateways EIPs
 
 Authors
 =======
