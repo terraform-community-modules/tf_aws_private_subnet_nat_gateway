@@ -18,6 +18,7 @@ Module Input Variables
 - `public_subnet_ids` - List of public subnet ids where NAT gateway will be created
 - `nat_gateways_count` - Number of NAT gateways to create (should be at least 1). For high-availability make it equal to public subnets.
 - `map_public_ip_on_launch` - Boolean that controls the subnets ability to assign public ip addresses (default=true).
+- `tags` - dictionary of tags that will be added to resources created by the module
 
 Usage
 -----
@@ -32,6 +33,11 @@ module "private_subnet" {
   azs                = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
   public_subnet_ids  = ["subnet-123abcde", "subnet-456abcde", "subnet-789abcde"]
   nat_gateways_count = 3    # can be between 1 and "number of public subnets".
+
+  tags {
+      "Terraform" = "true"
+      "Environment" = "${var.environment}"
+  }
 }
 ```
 
