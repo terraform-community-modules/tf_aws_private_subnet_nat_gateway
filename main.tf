@@ -33,7 +33,7 @@ resource "aws_subnet" "private" {
   count                   = "${length(var.cidrs)}"
   map_public_ip_on_launch = "${var.map_public_ip_on_launch}"
 
-  tags = "${merge(var.tags, map("Name", format("%s-subnet-private-%s", var.name, element(var.azs, count.index))))}"
+  tags = "${merge(var.tags, map("Name", format("%s.%s", var.name, element(var.azs, count.index))))}"
 }
 
 # Routes
@@ -41,7 +41,7 @@ resource "aws_route_table" "private" {
   vpc_id = "${var.vpc_id}"
   count  = "${length(var.cidrs)}"
 
-  tags = "${merge(var.tags, map("Name", format("%s-rt-private-%s", var.name, element(var.azs, count.index))))}"
+  tags = "${merge(var.tags, map("Name", format("%s.%s", var.name, element(var.azs, count.index))))}"
 }
 
 resource "aws_route_table_association" "private" {
