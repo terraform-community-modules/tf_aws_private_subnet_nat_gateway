@@ -15,9 +15,9 @@ Module Input Variables
 - `vpc_id` - VPC id
 - `cidrs` - List of private subnet CIDR blocks
 - `azs` - List of availability zones
-- `public_subnet_ids` - List of public subnet ids where NAT gateway will be created
-- `nat_gateways_count` - Number of NAT gateways to create (should be at least 1). For high-availability make it equal to public subnets.
-- `map_public_ip_on_launch` - Boolean that controls the subnets ability to assign public ip addresses (default=true).
+- `private_subnet_ids` - List of private subnet ids where NAT gateway will be created
+- `nat_gateways_count` - Number of NAT gateways to create (should be at least 1). For high-availability make it equal to the length of list `private_subnet_ids`.
+- `map_public_ip_on_launch` - Boolean that controls the subnets ability to assign public ip addresses (default=false).
 
 Usage
 -----
