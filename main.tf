@@ -11,14 +11,14 @@ variable "azs" {
 }
 variable "vpc_id" {
 }
-variable "public_subnet_ids" {
-  description = "A list of public subnet ids"
+variable "private_subnet_ids" {
+  description = "A list of private subnet ids"
   default     = []
 }
 variable "nat_gateways_count" {
 }
 variable "map_public_ip_on_launch" {
-  default = true
+  default = false
 }
 
 # Subnet
@@ -69,7 +69,7 @@ resource "aws_eip" "nat" {
 
 resource "aws_nat_gateway" "nat" {
   allocation_id = "${element(aws_eip.nat.*.id, count.index)}"
-  subnet_id     = "${element(var.public_subnet_ids, count.index)}"
+  subnet_id     = "${element(var.private_subnet_ids, count.index)}"
   count         = "${var.nat_gateways_count}"
 }
 
