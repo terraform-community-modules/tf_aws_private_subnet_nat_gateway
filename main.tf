@@ -20,6 +20,10 @@ variable "nat_gateways_count" {
 variable "map_public_ip_on_launch" {
   default = true
 }
+variable "tags" {
+  description = "A map of tags to add to all resources"
+  default     = {}
+}
 
 # Subnet
 resource "aws_subnet" "private" {
@@ -29,9 +33,7 @@ resource "aws_subnet" "private" {
   count                   = "${length(var.cidrs)}"
   map_public_ip_on_launch = "${var.map_public_ip_on_launch}"
 
-  tags {
-    Name = "${var.name}.${element(var.azs, count.index)}"
-  }
+  tags = "${merge(var.tags, map("Name", format("%s.%s", var.name, element(var.azs, count.index))))}"
 }
 
 # Routes
@@ -39,9 +41,7 @@ resource "aws_route_table" "private" {
   vpc_id = "${var.vpc_id}"
   count  = "${length(var.cidrs)}"
 
-  tags {
-    Name = "${var.name}.${element(var.azs, count.index)}"
-  }
+  tags = "${merge(var.tags, map("Name", format("%s.%s", var.name, element(var.azs, count.index))))}"
 }
 
 resource "aws_route_table_association" "private" {
